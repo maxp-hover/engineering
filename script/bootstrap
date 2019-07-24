@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# script/bootstrap: Resolve all dependencies that the application requires to run.
+
+# Exit script if any commands return errors (if they exit with non-zero)
+set -e
+
+# Work from the app’s root directory
+cd "$(dirname "$0")/.."
+
+echo
+echo "==> Running script/bootstrap…"
+echo
+
+# Download strap.sh and run it
+echo "==> Strapping your Mac…"
+echo "==> Downloading strap.sh script from github.com/MikeMcQuaid/strap…"
+curl https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh -o strap.sh
+echo
+
+
+# Delete strap.sh
+echo "==> Deleting strap.sh script…"
+rm strap.sh
+echo
+
