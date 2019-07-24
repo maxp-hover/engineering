@@ -67,7 +67,7 @@ echo "==> Installing nvm…"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 echo
 
-# Create NVM's working directory if it doesn't exist
+# Create NVM’s working directory if it doesn't exist
 mkdir -p ~/.nvm
 
 # Install latest Node and NPM with nvm
@@ -77,6 +77,65 @@ source ~/.nvm/nvm.sh # This loads nvm
 nvm install  --lts --latest-npm
 set -e
 echo
+
+# Pin Postgres to a particular legacy version
+required_postgresql_version='9.6.10'
+
+# Check if Postgres is already installed
+if which psql > /dev/null; then
+  postgres_installed='true'
+  postgres_version=`psql --version`
+
+  if [[ $postgres_version=="psql (PostgreSQL) $required_postgresql_version" ]]; then
+    required_postgres_version_installed='true'
+  else
+    required_postgres_version_installed='false'
+  fi
+else
+  postgres_installed='false'
+  required_postgres_version_installed='false'
+fi
+
+# Install Postgres
+if [[ $required_postgres_version_installed == 'false' ]]; then
+  brew cleanup
+  echo
+
+  # Tap CloverHealth’s Postgres and Postgis formulas
+  echo "==> Tapping CloverHealth’s Postgres and Postgis formulas…"
+  brew tap cloverhealth/homebrew-tap
+  echo
+
+  # Re-install latest Postgres
+  echo "==> Re-installing latest Postgres…"
+  brew install postgresql
+  echo
+
+  # Unlink latest Postgres formula
+  echo "==> Unlinking latest brew Postgres formula…"
+  brew unlink postgresql
+  echo
+
+  # Delete any previous Postgres data directory
+  echo "==> Deleting Postgres data directory…"
+  rm -rf /usr/local/var/postgres
+  echo
+
+  # Install Postgres via CloverHealth’s formula
+  echo "==> Installing CloverHealth’s version of Postgres…"
+  brew install cloverhealth/tap/postgresql
+  echo
+
+  # Switch to Postgres $required_postgresql_version
+  echo "==> Switching to version $required_postgresql_version of Postgres…"
+  brew switch postgresql $required_postgresql_version
+  echo
+
+  # Install Postgis via CloverHealth’s formula
+  echo "==> Installing CloverHealth’s version of Postgis…"
+  brew install cloverhealth/tap/postgis
+  echo
+fi
 
 # All done!
 echo "==> SUCCESS! Your development environment is now bootstrapped!"

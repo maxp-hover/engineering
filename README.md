@@ -12,7 +12,7 @@
   - [x] bundler
   - [x] nvm
   - [x] node latest
-  - [ ] pg 9.6 cloverhealth
-  - [ ] postgis
+  - [x] pg 9.6 cloverhealth
+  - [x] postgis
   - [ ] clone all relevant hoverinc repos
   - [ ] run their bootstrap and setup scripts
