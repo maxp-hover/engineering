@@ -1,3 +1,5 @@
+tap 'codefresh-io/cli' # tap Codefresh homebrew repo
+
 brew 'awscli'
 brew 'bash-completion'
 brew 'codefresh'
