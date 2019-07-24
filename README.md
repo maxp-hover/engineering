@@ -4,8 +4,8 @@
 
 0. [ ] Get AWS access from devops / do AWS MFA setup
 1. [ ] Git / GitHub setup / SSH keys
-2. [ ] strap (without the oauth access to all of the things)
-3. [x] script/bootstrap
+2. [x] strap (without the oauth access to all of the things)
+3. [ ] script/bootstrap
   - [ ] rbenv
   - [ ] ruby latest
   - [ ] rubygems

@@ -62,6 +62,22 @@ echo "==> Installing the Bundler Ruby gem…"
 gem install bundler
 echo
 
+# Install nvm via its install script, not Homebrew
+echo "==> Installing nvm…"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+echo
+
+# Create NVM's working directory if it doesn't exist
+mkdir -p ~/.nvm
+
+# Install latest Node and NPM with nvm
+echo "==> Installing latest Node and NPM…"
+set +e
+source ~/.nvm/nvm.sh # This loads nvm
+nvm install  --lts --latest-npm
+set -e
+echo
+
 # All done!
 echo "==> SUCCESS! Your development environment is now bootstrapped!"
 echo "    Up next: TODO"
