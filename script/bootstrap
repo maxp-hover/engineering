@@ -22,6 +22,37 @@ else
   touch ~/.bash_profile
 fi
 
+# Setup Git/GitHub
+echo "==> What email address do you use with your GitHub account?"
+read github_email
+
+# Check if RSA SSH keys already exist
+if [[ -f ~/.ssh/id_rsa ]]; then
+  echo "==> Found SSH key in ~/.ssh/id_rsa"
+else
+  # From: https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key
+  echo "==> Generating SSH key for $github_email …"
+  ssh-keygen -t rsa -b 4096 -C "$github_email"
+  echo
+
+  echo "==> Starting ssh-agent in the background…"
+  eval "$(ssh-agent -s)"
+  echo
+
+  # Ensure that SSH config file exists
+  touch ~/.ssh/config
+
+  # Add SSH key loading to SSH config
+  echo "==> Adding SSH config to automatically load SSH keys"
+  grep -qF -- "IdentityFile ~/.ssh/id_rsa" ~/.ssh/config || echo "\n\nHost *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_rsa\n\n" >> ~/.ssh/config
+  echo
+
+  # Add SSH private key to the ssh-agent and store passphrase in your keychain
+  echo "==> Adding SSH key to ssh-agent and storing passphrase in your keychain"
+  ssh-add -K ~/.ssh/id_rsa
+  echo
+fi
+
 # Download strap.sh and run it
 echo "==> Downloading strap.sh script from github.com/MikeMcQuaid/strap…"
 curl https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh -o strap.sh

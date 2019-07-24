@@ -2,8 +2,13 @@
 
 # Development Setup
 
+## Git Setup
+
+
+***
+
 0. [ ] Get AWS access from devops / do AWS MFA setup
-1. [ ] Git / GitHub setup / SSH keys
+1. [x] Git / GitHub setup / SSH keys
 2. [x] strap (without the oauth access to all of the things)
 3. [x] script/bootstrap
   - [x] rbenv
