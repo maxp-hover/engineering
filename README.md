@@ -6,12 +6,12 @@
 1. [ ] Git / GitHub setup / SSH keys
 2. [x] strap (without the oauth access to all of the things)
 3. [ ] script/bootstrap
-  - [ ] rbenv
-  - [ ] ruby latest
-  - [ ] rubygems
-  - [ ] bundler
-  - [ ] nvm
-  - [ ] node latest
+  - [x] rbenv
+  - [x] ruby latest
+  - [x] rubygems
+  - [x] bundler
+  - [x] nvm
+  - [x] node latest
   - [ ] pg 9.6 cloverhealth
   - [ ] postgis
   - [ ] clone all relevant hoverinc repos
