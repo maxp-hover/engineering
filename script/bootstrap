@@ -13,11 +13,13 @@ echo "==> Running script/bootstrap…"
 echo
 
 # Download strap.sh and run it
-echo "==> Strapping your Mac…"
 echo "==> Downloading strap.sh script from github.com/MikeMcQuaid/strap…"
 curl https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh -o strap.sh
 echo
 
+echo "==> Strapping your Mac…"
+sh strap.sh
+echo
 
 # Delete strap.sh
 echo "==> Deleting strap.sh script…"
