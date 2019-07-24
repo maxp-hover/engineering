@@ -26,3 +26,15 @@ echo "==> Deleting strap.sh script…"
 rm strap.sh
 echo
 
+# Read the Ruby version from .ruby-version file
+ruby_version=`cat .ruby-version`
+
+# Install Ruby version from .ruby-version file
+echo "==> Installing Ruby: $ruby_version …"
+rbenv install -s $ruby_version
+echo
+
+# Add rbenv’s auto-switching to .bash_profile, unless its already in there
+echo "==> Adding Ruby version auto-switching to .bash_profile…"
+grep -qF -- 'eval "$(rbenv init -)"' ~/.bash_profile || echo '\n# rbenv ruby version auto-switching - inserted by @hoverinc\neval "$(rbenv init -)"' >> ~/.bash_profile
+echo
