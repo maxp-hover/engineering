@@ -12,6 +12,16 @@ echo
 echo "==> Running script/bootstrap…"
 echo
 
+# Create either .bash_profile (default) or .zshrc in $HOME directory
+echo "==> Do you plan to use Z shell? (y/N)"
+read zsh_user
+
+if [[ $zsh_user == 'y' ]]; then
+  touch ~/.zshrc
+else
+  touch ~/.bash_profile
+fi
+
 # Download strap.sh and run it
 echo "==> Downloading strap.sh script from github.com/MikeMcQuaid/strap…"
 curl https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh -o strap.sh
