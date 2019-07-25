@@ -14,9 +14,7 @@ echo
 
 # Create either .bash_profile (default) or .zshrc in $HOME directory
 echo "==> Do you plan to use Z shell? (y/N)"
-read zsh_user </dev/tty || {
-  zsh_user=n
-}
+read zsh_user </dev/tty || { zsh_user="n" }
 
 if [[ $zsh_user == "y" ]]; then
   touch ~/.zshrc
@@ -31,6 +29,7 @@ if [[ -f ~/.ssh/id_rsa ]]; then
 else
   # Setup Git/GitHub
   echo "==> What email address do you use with your GitHub account?"
+
   read github_email </dev/tty || {
     github_email=null
   }
@@ -91,8 +90,8 @@ echo "==> Deleting strap.sh script…"
 rm strap.sh
 echo
 
-# Read the Ruby version from .ruby-version file
-ruby_version=`cat .ruby-version`
+# Set the Ruby version, same as the .ruby-version file
+ruby_version="2.6.3"
 
 # Install Ruby version from .ruby-version file
 echo "==> Installing Ruby: $ruby_version …"
