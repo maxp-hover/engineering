@@ -22,14 +22,15 @@ else
   touch ~/.bash_profile
 fi
 
-# Setup Git/GitHub
-echo "==> What email address do you use with your GitHub account?"
-read github_email
-
 # Check if RSA SSH keys already exist
 if [[ -f ~/.ssh/id_rsa ]]; then
   echo "==> Found SSH key in ~/.ssh/id_rsa"
+  echo
 else
+  # Setup Git/GitHub
+  echo "==> What email address do you use with your GitHub account?"
+  read github_email
+
   # From: https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key
   echo "==> Generating SSH key for $github_email …"
   ssh-keygen -t rsa -b 4096 -C "$github_email"
@@ -52,6 +53,25 @@ else
   ssh-add -K ~/.ssh/id_rsa
   echo
 fi
+
+echo "==> Copying your public SSH key to clipboard…"
+pbcopy < ~/.ssh/id_rsa.pub
+echo
+
+echo "==> Your browser will be opened to a GitHub SSH Keys settings page…"
+echo "==> You’ll need to paste into the 'Key' field, then click the 'Add SSK Key' button…"
+echo
+
+echo "==> Press any key to open your browser…"
+read
+
+echo "==> Opening your browser to a GitHub settings page…"
+open https://github.com/settings/ssh/new
+echo
+
+echo "==> Press any key to continue after you have saved your SSH key on GitHub…"
+read
+echo
 
 # Download strap.sh and run it
 echo "==> Downloading strap.sh script from github.com/MikeMcQuaid/strap…"
