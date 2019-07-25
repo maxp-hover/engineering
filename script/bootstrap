@@ -14,7 +14,9 @@ echo
 
 # Create either .bash_profile (default) or .zshrc in $HOME directory
 echo "==> Do you plan to use Z shell? (y/N)"
-read zsh_user
+read zsh_user </dev/tty || {
+  zsh_user=n
+}
 
 if [[ $zsh_user == "y" ]]; then
   touch ~/.zshrc
@@ -29,7 +31,9 @@ if [[ -f ~/.ssh/id_rsa ]]; then
 else
   # Setup Git/GitHub
   echo "==> What email address do you use with your GitHub account?"
-  read github_email
+  read github_email </dev/tty || {
+    github_email=null
+  }
 
   # From: https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
   echo "==> Generating SSH key for $github_email …"
