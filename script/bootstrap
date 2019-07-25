@@ -119,12 +119,10 @@ if [[ -f ~/.zshrc ]]; then
 fi
 echo
 
-# Re-source the .bash_profile for current user
-set +e
-source ~/.bash_profile
-set -e
-
+# Initialize rbenv in this shell for use
+echo "==> Initializing rbenv…"
 rbenv init
+echo
 
 # Install Bundler
 echo "==> Installing the Bundler Ruby gem…"
