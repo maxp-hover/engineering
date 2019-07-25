@@ -113,22 +113,16 @@ echo "==> Adding Ruby version auto-switching to .bash_profile/.zshrc…"
 
 if [[ -f ~/.bash_profile ]]; then
   grep -qF -- 'eval "$(rbenv init -)"' ~/.bash_profile || echo '\n# rbenv ruby version auto-switching - inserted by @hoverinc\neval "$(rbenv init -)"' >> ~/.bash_profile
-  set +e
-  source ~/.bash_profile
-  set -e
 fi
 if [[ -f ~/.zshrc ]]; then
   grep -qF -- 'eval "$(rbenv init -)"' ~/.zshrc || echo '\n# rbenv ruby version auto-switching - inserted by @hoverinc\neval "$(rbenv init -)"' >> ~/.zshrc
-  set +e
-  source ~/.zshrc
-  set -e
 fi
 echo
 
-# Re-source the .bash_profile for current user
-set +e
-source ~/.bash_profile
-set -e
+# Initialize rbenv in this shell for use
+echo "==> Initializing rbenv…"
+rbenv init
+echo
 
 # Install Bundler
 echo "==> Installing the Bundler Ruby gem…"
