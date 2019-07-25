@@ -31,7 +31,7 @@ else
   echo "==> What email address do you use with your GitHub account?"
   read github_email
 
-  # From: https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key
+  # From: https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
   echo "==> Generating SSH key for $github_email …"
   ssh-keygen -t rsa -b 4096 -C "$github_email"
   echo
@@ -204,6 +204,4 @@ fi
 
 # All done!
 echo "==> SUCCESS! Your development environment is now bootstrapped!"
-echo "    Up next: TODO"
-echo
 echo
