@@ -14,7 +14,9 @@ echo
 
 # Create either .bash_profile (default) or .zshrc in $HOME directory
 echo "==> Do you plan to use Z shell? (y/N)"
-read zsh_user </dev/tty || { zsh_user="n" }
+read zsh_user </dev/tty || {
+  zsh_user="n"
+}
 
 if [[ $zsh_user == "y" ]]; then
   touch ~/.zshrc
