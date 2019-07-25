@@ -10,9 +10,9 @@ curl https://raw.githubusercontent.com/hoverinc/engineering/master/script/bootst
 
 You'll be asked for your:
 
-- **macOS password** : This is so that the script can use `sudo` to install some things.
 - **Bash / Z shell preference** : If you don't know, just press `return` to use the default.
 - **GitHub account email address** : This is used to create SSH keys for working with GitHub.
+- **macOS password** : This is so that the script can use `sudo` to install some things.
 
 ## What it does
 
