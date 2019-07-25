@@ -19,7 +19,6 @@ You'll be asked for your:
 - Checks for or creates SSH keys for git/GitHub
 - Helps you add an SSH key to your GitHub account
 - Uses `strap` to [setup up your Mac](https://github.com/MikeMcQuaid/strap#features) for development:
-
     > - Disables Java in Safari (for better security)
     > - Enables the macOS screensaver password immediately (for better security)
     > - Enables the macOS application firewall (for better security)
@@ -34,7 +33,6 @@ You'll be asked for your:
     > - Installs the latest macOS software updates (for better security)
     > - Installs dotfiles from a user's https://github.com/username/dotfiles repository and runs script/setup to configure them; also runs script/strap-after-setup after setting up everything else
     > - Installs software from a user's Brewfile in their https://github.com/username/homebrew-brewfile repository or .Brewfile in their home directory.
-
 - Installs everything from this repo's [`Brewfile`](https://github.com/hoverinc/engineering/blob/master/Brewfile)
 - Installs Ruby
 - Installs NVM, the latest Node, and the latest NPM
