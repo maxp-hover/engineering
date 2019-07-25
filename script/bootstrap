@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# script/bootstrap: Resolve all dependencies that the application requires to run.
+# script/bootstrap: Setup a new laptop at HOVER
 
 # Exit script if any commands return errors (if they exit with non-zero)
 set -e
