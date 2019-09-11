@@ -1,5 +1,6 @@
 tap 'codefresh-io/cli' # tap Codefresh homebrew repo
 
+cask 'aws-vault'
 brew 'awscli'
 brew 'bash-completion'
 brew 'codefresh'
@@ -8,6 +9,7 @@ brew 'docker-compose-completion'
 brew 'docker-credential-helper'
 brew 'docker-machine-completion'
 brew 'git'
+brew 'hover-cli', args: ['with-bash-completion', 'with-zsh-completion']
 brew 'htop'
 brew 'hub'
 brew 'jq'
