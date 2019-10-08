@@ -19,10 +19,11 @@ read zsh_user </dev/tty || {
 }
 
 if [[ $zsh_user == "y" ]]; then
-  touch ~/.zshrc
+  SHELL_CONFIG="$HOME/.zshrc"
 else
-  touch ~/.bash_profile
+  SHELL_CONFIG="$HOME/.bash_profile"
 fi
+touch $SHELL_CONFIG
 
 # Check if RSA SSH keys already exist
 if [[ -f ~/.ssh/id_rsa ]]; then
@@ -103,7 +104,8 @@ echo
 ruby_version="2.6.5"
 
 # Update Homebrew and ruby-build to get the latest list of Rubies
-brew update && brew upgrade ruby-build
+
+brew update && brew install --force ruby-build && brew install --force rbenv
 
 # Install Ruby version from .ruby-version file
 echo "==> Installing Ruby: $ruby_version …"
@@ -112,20 +114,19 @@ echo
 
 # Add rbenv’s auto-switching to .bash_profile/.zshrc, unless its already in there
 # Then, re-source the .bash_profile/.zshrc for current user
-echo "==> Adding Ruby version auto-switching to .bash_profile/.zshrc…"
+echo "==> Adding Ruby version auto-switching to $SHELL_CONFIG"
 
-if [[ -f ~/.bash_profile ]]; then
-  grep -qF -- 'eval "$(rbenv init -)"' ~/.bash_profile || echo '\n# rbenv ruby version auto-switching - inserted by @hoverinc\neval "$(rbenv init -)"' >> ~/.bash_profile
-fi
-if [[ -f ~/.zshrc ]]; then
-  grep -qF -- 'eval "$(rbenv init -)"' ~/.zshrc || echo '\n# rbenv ruby version auto-switching - inserted by @hoverinc\neval "$(rbenv init -)"' >> ~/.zshrc
-fi
+echo "==> Initializing rbenv…"
+grep -qF -- 'eval "$(rbenv init -)"' $SHELL_CONFIG || echo '\n# rbenv ruby version auto-switching - inserted by @hoverinc\neval "$(rbenv init -)"' >> $SHELL_CONFIG
+source $SHELL_CONFIG
 echo
 
 # Initialize rbenv in this shell for use
-echo "==> Initializing rbenv…"
-rbenv init
-echo
+# rbenv init
+# echo
+
+echo "==> rehashing rbenv…"
+rbenv rehash
 
 # Install Bundler
 echo "==> Installing the Bundler Ruby gem…"
