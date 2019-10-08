@@ -112,6 +112,8 @@ echo "==> Installing Ruby: $ruby_version …"
 rbenv install -s $ruby_version
 echo
 
+echo $ruby_version > ~/.ruby-version
+
 # Add rbenv’s auto-switching to .bash_profile/.zshrc, unless its already in there
 # Then, re-source the .bash_profile/.zshrc for current user
 echo "==> Adding Ruby version auto-switching to $SHELL_CONFIG"
@@ -125,7 +127,7 @@ echo
 # rbenv init
 # echo
 
-# HEY, LISTEN! This isn't pointing gem to the right install directory :(
+# HEY, LISTEN! This isn't pointing `gem` to the right install directory :(
 echo "==> rehashing rbenv…"
 rbenv rehash
 
