@@ -125,6 +125,7 @@ echo
 # rbenv init
 # echo
 
+# HEY, LISTEN! This isn't pointing gem to the right install directory :(
 echo "==> rehashing rbenv…"
 rbenv rehash
 
