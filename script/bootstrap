@@ -124,11 +124,7 @@ grep -qF -- 'eval "$(rbenv init -)"' $SHELL_CONFIG || echo '\n# rbenv ruby versi
 source $SHELL_CONFIG
 echo
 
-# Initialize rbenv in this shell for use
-# rbenv init
-# echo
-
-echo "==> rehashing rbenv…"
+echo "==> Rehashing rbenv…"
 rbenv rehash
 
 # Install Bundler
