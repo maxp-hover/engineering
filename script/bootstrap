@@ -112,6 +112,7 @@ echo "==> Installing Ruby: $ruby_version …"
 rbenv install -s $ruby_version
 echo
 
+# Add current ruby-version to the home directory
 echo $ruby_version > ~/.ruby-version
 
 # Add rbenv’s auto-switching to .bash_profile/.zshrc, unless its already in there
@@ -213,6 +214,9 @@ if [[ $required_postgres_version_installed == "false" ]]; then
   brew install cloverhealth/tap/postgis
   echo
 fi
+
+echo "==> Running engineering Brewfile to install remaining developer tools and various other niceties…"
+curl https://raw.githubusercontent.com/hoverinc/engineering/master/Brewfile | brew bundle --file=-
 
 # All done!
 echo "==> SUCCESS! Your development environment is now bootstrapped!"
