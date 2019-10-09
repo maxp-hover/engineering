@@ -104,8 +104,9 @@ echo
 ruby_version="2.6.5"
 
 # Update Homebrew and ruby-build to get the latest list of Rubies
-
-brew update && brew install --force ruby-build rbenv
+brew update
+brew upgrade ruby-build || brew install ruby-build
+brew upgrade rbenv      || brew install rbenv
 
 # Install Ruby version from .ruby-version file
 echo "==> Installing Ruby: $ruby_version …"
@@ -121,11 +122,11 @@ echo "==> Adding Ruby version auto-switching to $SHELL_CONFIG"
 
 echo "==> Initializing rbenv…"
 grep -qF -- 'eval "$(rbenv init -)"' $SHELL_CONFIG || echo '\n# rbenv ruby version auto-switching - inserted by @hoverinc\neval "$(rbenv init -)"' >> $SHELL_CONFIG
-source $SHELL_CONFIG
 echo
 
 echo "==> Rehashing rbenv…"
 rbenv rehash
+echo
 
 # Install Bundler
 echo "==> Installing the Bundler Ruby gem…"
