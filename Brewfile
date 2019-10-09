@@ -19,7 +19,6 @@ brew 'redis', restart_service: :changed
 brew 'watch'
 brew 'yq'
 
-cask 'aws-vault'
 cask 'docker'
 cask 'firefox'
 cask 'google-chrome'
