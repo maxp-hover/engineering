@@ -1,5 +1,5 @@
 tap 'codefresh-io/cli' # tap Codefresh homebrew repo
-tap 'hoverinc/hover-cli', 'https://github.com/hoverinc/hover-cli.git'
+tap 'hoverinc/hover-cli', 'git@github.com/hoverinc/hover-cli.git'
 
 cask 'aws-vault'
 brew 'awscli'
