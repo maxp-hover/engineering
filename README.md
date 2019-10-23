@@ -2,16 +2,10 @@
 
 # Development setup
 
-Download the file through `Terminal.app` on your Mac
+Copy/paste this into `Terminal.app` on your Mac
 
 ```sh
-curl https://raw.githubusercontent.com/hoverinc/engineering/master/script/bootstrap > bootstrap
-```
-
-Then run it:
-
-```sh
-sh bootstrap
+curl https://raw.githubusercontent.com/hoverinc/engineering/master/script/bootstrap > bootstrap && sh bootstrap
 ```
 
 You'll be asked for your:
