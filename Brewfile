@@ -10,6 +10,7 @@ brew 'docker-compose-completion'
 brew 'docker-credential-helper'
 brew 'docker-machine-completion'
 brew 'git'
+brew 'graphviz'
 brew 'hover-cli', args: ['with-bash-completion', 'with-zsh-completion']
 brew 'htop'
 brew 'hub'
