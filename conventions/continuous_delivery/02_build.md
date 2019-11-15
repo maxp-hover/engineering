@@ -6,8 +6,8 @@ The goal of this step is to build the Docker image(s) for your application on Co
 * You know the build secrets you need to provide
 
 ## Tasks
-### Create a `.codefresh/build.yml`
-In your `.codefresh/build.yml`, you need to clone your repository:
+### Create a `codefresh/build.yml`
+In your `codefresh/build.yml`, you need to clone your repository:
 ```
 version: '1.0'
 steps:
@@ -45,7 +45,7 @@ There are some rules around building images:
 #### Examples
 
 ##### Simple Codefresh build
-`.codefresh/build.yml`:
+`codefresh/build.yml`:
 ```yaml
 version: '1.0'
 steps:
@@ -67,7 +67,7 @@ This can be achieved securely via Buildkit:
 * https://docs.docker.com/develop/develop-images/build_enhancements/
 * https://codefresh.io/docs/docs/codefresh-yaml/steps/build/#buildkit-support
 
-Example `.codefresh/build.yml`:
+Example `codefresh/build.yml`:
 ```yaml
 version: '1.0'
 steps:
@@ -113,7 +113,7 @@ This can be achieved via a developer token and [multi-stage builds](https://docs
 
 > *TODO*: Rewrite this section to use Buildkit and a secrets file
 
-Example `.codefresh/build.yml`:
+Example `codefresh/build.yml`:
 ```yaml
 version: '1.0'
 steps:
@@ -155,11 +155,11 @@ You can make the `GITHUB_ACCESS_TOKEN` environment variable available to your pi
 * In case you need multiple pipelines, please adhere to the following conventions:
   * Pipeline names are all lower case
   * Words are separated using underscores (`_`)
-  * Place the YAML file in the `.codefresh` directory
-  * The name of the respective Codefresh YAML is identical to the pipeline name. For example a pipeline named `fancy_stuff` should use the following file:`.codefresh/fancy_stuff.yml`
+  * Place the YAML file in the `codefresh` directory
+  * The name of the respective Codefresh YAML is identical to the pipeline name. For example a pipeline named `fancy_stuff` should use the following file:`codefresh/fancy_stuff.yml`
 * Add a trigger that runs on commits and calls the `build` pipeline
   * Set the trigger name to the repo_name including the organization. For example `hoverinc/cool-app`
-* Select that you want to use the `.codefresh/build.yml` from the repo and auto select the branch
+* Select that you want to use the `codefresh/build.yml` from the repo and auto select the branch
 
 ### Trigger a pipeline run
 Once you have created the pipeline, you can trigger a run via
