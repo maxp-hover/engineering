@@ -12,16 +12,12 @@ Most of the tasks are related to 12-factorizing your applications. You can read 
 
 ## Tasks
 * [Use environment variables to configure your application](#use-environment-variables-to-configure-your-application)
-* [Consolidate your environments](#consolidate-your-environments)
 * [Run your application as a service](#run-your-application-as-a-service)
 * [Supply a working `Dockerfile` to run the application](#supply-a-working-dockerfile-to-run-the-application)
 * [Setup a good `.dockerignore` file](#setup-a-good-dockerignore-file)
 * [Keep your application stateless](#keep-your-application-stateless)
 * [Utilize logs](#utilize-logs)
 * [Define and document your dependencies](#define-and-document-your-dependencies)
-* [Retrieve secrets from vault](#retrieve-secrets-from-vault)
-* [Optional: Provide a docker based development workflow](#optional-provide-a-docker-based-development-workflow)
-* [Use environment variables to configure your application](#use-environment-variables-to-configure-your-application)
 
 ### Use environment variables to configure your application
 In a nutshell, you have to make sure that settings can be passed to the application via environment variables at *run-time*. This also means that connection information to backing services (database servers, URLs for APIs you consume, …) need to be passed in via environment variables. This enables us to dynamically discover services in ephemeral environments.
@@ -40,11 +36,41 @@ A couple things to keep in mind:
 
 > Read more about this in [Factor 3](https://12factor.net/config) and [Factor 4](https://12factor.net/backing-services)
 
-### Consolidate your environments
-
 Your application should only have one environment from an application perspective. Well, ok - there will be three for applications based on Rails and other frameworks: `development`, `test`, `production`. We do not want any additional environments like `qa` or `staging`. Those environments should use the `production` environment and change the parts of the configuration that are different using environment variables.
 
 > If you are using more than the 3 environments mentioned above, it is recommended to keep doing so until you reach step 5 and deploy to Kubernetes. Just prepare your `production` environment to use environment variables for every setting that needs to be different for the various environments. While doing this, configure the default values for those settings to be the ones for production and document the settings for the other environments. This will make the transition easier and save everybody time.
+
+The idea here is that the application is not aware of the concept of an environment. The behavior off the application should be solely controlled by providing the desired configuration via environment variables. To achieve this you need to stop checking `Rails.environment`/`REACT_ENV`, etc. and instead use individual environment variables to control the behavior.
+
+For example
+```
+if Rails.env.production?
+  notify_slack
+end
+```
+
+Becomes
+```
+if ENV["SLACK_NOTIFICATIONS_ENABLED"]
+  notify_slack
+end
+```
+
+We don’t want to clutter the app with checks for `ENV`, and also need a meaningful defaults. To make this possible, you should read the environment variables in a central place, for example our `app_config.yaml`. So the code would more look like
+```
+if AppConfig.slack.notifications_enabled?
+  notify_slack
+end
+```
+
+And the app_config.yaml:
+```
+production:
+  slack:
+    notifications_enabled: <%= ENV.fetch("SLACK_NOTIFICATIONS_ENABLED", "false").to_boolean %>
+```
+
+We would only need to set this environment variable in production, all other environments will use the default of `false`.
 
 ### Run your application as a service
 Your application should be self-contained. That means it runs as its own process.
@@ -56,7 +82,6 @@ As an org, we need to ensure that services we deploy are up and running. The tea
 * Provide a script to determine if the application is up and running in other cases
 
 > Read more about this in [Factor 6 - Execute the app as one or more stateless processes](https://12factor.net/processes)) and [Factor 7 - Export services via port binding](https://12factor.net/port-binding)
-
 
 ### Supply a working `Dockerfile` to run the application
 We run all applications in Docker containers. Creating and maintaining the `Dockerfile` that is used to create the container image is the respective teams' responsibility. Docker allows us to bundle our application and its dependencies into a portable package that we can test and run anywhere. Docker also helps us separate the build from the release and run stages in our applications' lifecycle.
@@ -72,7 +97,6 @@ This means that you should not put secrets in the `Dockerfile` itself or pass th
 *TODO*: Add example how to access private GH repos at build time
 
 > Read more about this in [Factor 2 - Dependencies](https://12factor.net/dependencies), [Factor 5 - Build, release, run](https://12factor.net/build-release-run), and [Factor 10 - Dev/prod parity](https://12factor.net/parity)
-
 
 ### Setup a good `.dockerignore` file
 The `.dockerignore` file controls which files are excluded when we build our container images. This file is important and helps us to
@@ -126,14 +150,6 @@ External dependencies classify everything that is not running as part of your ap
 External dependencies should at least be described in a `DEPENDENCIES.md` file as part of your application repository. Describe why these dependencies are required and how they are used. Ideally you should also provide a Docker Compose configuration (`docker-compose.yml`) and scripts that allow spinning up the application AND its dependencies.
 
 Identify and document tight coupling to other application / external services as well. For example, if your application uses a naming schema to store files consumed by other applications, those applications are tightly coupled. We can not change one without changing the other. We want to identify these dependencies and eliminate them to make the overall architecture more flexible and easier to manage. Use the `DEPENDENCIES.md` for documenting them.
-
-### Retrieve secrets from vault
-*TODO*
-
-### Optional: Provide a docker based development workflow
-To make it easier for you and others to run the application, and create compositions for integration tests, it is recommended to setup a Docker based development workflow.
-
-*TODO*
 
 
 ## Examples
