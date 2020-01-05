@@ -1,9 +1,12 @@
-# Step 2 - Build
+# Building deployable artifacts @HOVER
 The goal of this step is to build the Docker image(s) for your application on Codefresh. These images will later be used to test and deploy the application.
+
+Applications are deployed as container images. We build these images on a CI/CD System. The following paragraphs give you an overview of how to do this and what conventions to follow.
 
 ## Requirements
 * You have a working Dockerfile and your Docker image can be built locally
 * You know the build secrets you need to provide
+* You have read the conventions on how to use [Codefresh](/conventions/codefresh)
 
 ## Tasks
 ### Create a `codefresh/build.yml`
@@ -22,11 +25,11 @@ steps:
 You can use the [Codefresh build step](https://codefresh.io/docs/docs/codefresh-yaml/steps/build/) to create your images.
 
 There are some rules around building images:
-* The image name must match your repository name
 * Don’t prepend a `hoverinc/`  before the image name - this happens automatically!!!
 * Tag your image with `build-${CF_SHORT_REVISION}`
   * The resulting tag will contain the short version of the Git SHA (`CF_SHORT_REVISION`), for example `build-b4e5ab2`
   * The `build-` prefix here is important because we rely on naming conventions to created releases. The `build-` prefix ensures we don't accidentally create a release for an image that hat has not been tested yet.
+* The image name must match your repository name for the image that will be deployed
 * If you are building different images from multiple `Dockerfile`s, make sure the `Dockerfile` and resulting images are relatable. Example:
   * Repository: `cool-app`
   * Dockerfile: `Dockerfile.client`

@@ -1,6 +1,10 @@
 # HOVER Engineering
+A collection of tools, guides, and supporting documents that describe the conventions and processes of the engineering org @HOVER
 
-# Development setup
+## Guides and convetions
+Guides and conventions describing the processes @HOVER can be found under [conventions/](conventions/)
+
+## Development setup
 
 Copy/paste this into `Terminal.app` on your Mac
 
@@ -14,7 +18,7 @@ You'll be asked for your:
 - **GitHub account email address** : This is used to create SSH keys for working with GitHub.
 - **macOS password** : This is so that the script can use `sudo` to install some things.
 
-## What it does
+### What it does
 
 - Checks for or creates SSH keys for git/GitHub
 - Helps you add an SSH key to your GitHub account

@@ -15,6 +15,7 @@ brew 'docker-machine-completion'
 brew 'git'
 brew 'graphviz'
 brew 'hover-cli', args: ['with-bash-completion', 'with-zsh-completion']
+brew 'hoverinc/tap/hoverctl'
 brew 'htop'
 brew 'hub'
 brew 'jq'
