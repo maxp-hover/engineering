@@ -1,12 +1,10 @@
 # Building deployable artifacts @HOVER
-The goal of this step is to build the Docker image(s) for your application on Codefresh. These images will later be used to test and deploy the application.
-
-Applications are deployed as container images. We build these images on a CI/CD System. The following paragraphs give you an overview of how to do this and what conventions to follow.
+Applications are deployed as container images. We build these images on a CI/CD System. The following sections give you an overview of how to do this and what conventions to follow.
 
 ## Requirements
 * You have a working Dockerfile and your Docker image can be built locally
 * You know the build secrets you need to provide
-* You have read the conventions on how to use [Codefresh](/conventions/codefresh)
+* You have read the [conventions](codefresh.md) on how to use Codefresh
 
 ## Tasks
 ### Create a `codefresh/build.yml`

@@ -1,10 +1,13 @@
-# Step 3 - Test
+# Testing application on Codefresh
 The goal of this step is to ensure that the built images for the application work as intended. This is done by running running unit, feature, and integration tests as necessary. Only applications with a passing test suite can be deployed.
+
+> This doc is work in progress. Please help us with PRs!
 
 ## Requirements
 * You have at least unit tests for your application
 * Your test suite runs locally
 * You understand the dependencies to run your test suite
+* You successfully [build your applications on Codefresh](build.md)
 
 ## Tasks
 ### Run your tests
@@ -21,24 +24,4 @@ Things to keep in mind
 * You might have to wait for your dependencies to become ready before you can run your tests. See the [Examples](#examples) for recommended ways to do this
 * Codefresh changes the working directory in your images! Make sure to set it to whatever you need: https://codefresh.io/docs/docs/codefresh-yaml/what-is-the-codefresh-yaml/#working-directories
 
-### Tag your image
-Once the test suite passes, the image needs to be tagged in order to allow the creation of a release in [step 4](04_release). In order to apply additional tags to an image, you need to use a [push step](https://codefresh.io/docs/docs/codefresh-yaml/steps/push/).
-
-The following tags need to be applied to the image:
-* The short version of git sha (`CF_SHORT_REVISION`)
-* The git sha (`CF_REVISION`)
-* The branch name (`CF_BRANCH_TAG_NORMALIZED_LOWER_CASE`)
-
-```
-  push:
-    type: push
-    title: Tagging image
-    stage: deploy
-    candidate: ${{build}}
-    tags:
-      - "${{CF_SHORT_REVISION}}"
-      - "${{CF_REVISION}}"
-      - "${{CF_BRANCH_TAG_NORMALIZED_LOWER_CASE}}"
-    image_name: my-app
-    registry: cfcr
-```
+## Dealing with test reports and artifacts
