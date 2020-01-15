@@ -1,7 +1,7 @@
 # Codefresh Conventions @HOVER
 
 ## Creating pipelines
-### Store your pipeline yaml files with the application code
+### Store pipeline yaml files with the application code
 This allows us to track changes to our pipelines. Please obay the following rules:
 * Store your pipelines in the root or in a directory called `codefresh`.
 * Use `yml` as file extension
@@ -32,11 +32,38 @@ For example:
 * A codefresh pipeline to build the frontend of the monorepo: `frontend/codefresh/build.yml`
 
 ### Always use a Git trigger to run your pipelines
-
+Because we [store pipeline yaml files with the application code](#store-pipeline-yaml-files-with-the-application-code), we need to ensure that the correct yaml file is used when we initiall trigger the pipeline or call a sub-pipeline. To achive this, make sure to:
+* Set "Autoselect branch" in your pipeline configuration
+* Provide a git trigger when calling a sub-pipeline:
+  ```
+  TODO: example
+  ```
 
 If a git trigger is not appropriate for the pipeline you are building, you are most likely building a [generic pipeline](#generic-pipelines).
 
+
+
+
+
+## Pipeline settings
+#### Build policies
+* concurrency
+* Once a build is created terminate previous builds from the same branch.
+* Once a build is terminated, terminate all child builds initiated from it.
+
+#### Executors
+
 ## Generic pipelines
+
+
+## Steps
+### Always provide a title and desription
+This makes 
+
+### Use stages if you have more than 5 steps
+
+
+### Parallel steps
 
 ## Building Container Images
 ### Tags
@@ -50,7 +77,7 @@ Tags should be uniq so that we can identidy the images
 ## Using custom images for steps
 When you need a custom tool to perform a step in your pipeline, check Dockerhub if there is an _official_ image that ships with the required tool(s). If that is not the case, DO NOT USE a public image unless HOVER explicitly trusts the maintainer.
 
-Usually that means you can safely use images provided by vendors we are working with like Codefresh, AWS, Google, ... You can NOT use an image provided by some "random" person on the internet. Using these images is a severe security risk as an attacker could gain access to GitHub, Codefresh, Kubernetes, and other resources.
+Usually that means you can safely use images provided by vendors we are working with like Codefresh, Astronomer, Cypres,... You can NOT use an image provided by some "random" person on the internet. Using these images is a severe security risk as an attacker could gain access to GitHub, Codefresh, Kubernetes, and other resources.
 
 Good:
 * Using images without a namespace like `alpine:3.10` or `ruby:2.6`
@@ -59,19 +86,3 @@ Good:
 
 Bad:
 * Using images that we don't have control over and we do not know the vendor like `banst/awscli` or `appropriate/curl`
-
-## Naming things
-* stage: a verb like `test`, `deploy`, `build`, ... - optionally followed by a noun like `run_unit_tests`, `notify_slack`
-* step name: Usually a noun that indicates the purpose of this step
-* title: A description of what is happening using present tense
-* description: Free form
-
-## Build policies
-* concurrency
-* Once a build is created terminate previous builds from the same branch.
-* Once a build is terminated, terminate all child builds initiated from it.
-
-## Sub-pipelines
-When does what make sense?
-
-## Plugins
